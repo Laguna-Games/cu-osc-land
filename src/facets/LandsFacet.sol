@@ -1,23 +1,25 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.0;
 
-import {IERC20} from '../../lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol';
+import {IERC20} from "../../lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol";
 
-import {LibResourceLocator} from '../../lib/@lagunagames/cu-common/src/libraries/LibResourceLocator.sol';
-import {LibContractOwner} from '../../lib/@lagunagames/lg-diamond-template/src/libraries/LibContractOwner.sol';
-import {LibERC721} from '../../lib/@lagunagames/cu-tokens/src/libraries/LibERC721.sol';
-import {LibLand} from '../libraries/LibLand.sol';
-import {LibPermissions} from '../libraries/LibPermissions.sol';
-import {LibLandDNA} from '../libraries/LibLandDNA.sol';
-import {LibValidate} from '../../lib/@lagunagames/cu-common/src/libraries/LibValidate.sol';
-import {LibAccessBadge} from '../../lib/@lagunagames/cu-common/src/libraries/LibAccessBadge.sol';
+import {LibResourceLocator} from "../../lib/cu-osc-common/src/libraries/LibResourceLocator.sol";
+import {LibContractOwner} from "../../lib/cu-osc-diamond-template/src/libraries/LibContractOwner.sol";
+import {LibERC721} from "../../lib/cu-osc-common-tokens/src/libraries/LibERC721.sol";
+import {LibLand} from "../libraries/LibLand.sol";
+import {LibPermissions} from "../libraries/LibPermissions.sol";
+import {LibLandDNA} from "../libraries/LibLandDNA.sol";
+import {LibValidate} from "../../lib/cu-osc-common/src/libraries/LibValidate.sol";
+import {LibAccessBadge} from "../../lib/cu-osc-common/src/libraries/LibAccessBadge.sol";
 
 contract LandsFacet {
     function paymentToken() external view returns (address) {
         return LibResourceLocator.wethToken();
     }
 
-    function getLandTypeByTokenId(uint256 tokenId) external view returns (uint8) {
+    function getLandTypeByTokenId(
+        uint256 tokenId
+    ) external view returns (uint8) {
         return uint8(LibLandDNA._getLandType(LibLandDNA._getDNA(tokenId)));
     }
 
@@ -29,7 +31,7 @@ contract LandsFacet {
         LibContractOwner.enforceIsContractOwner();
         require(
             msg.sender == _receiver,
-            'ERC721Facet: This contract currently only supports its owner withdrawing to self'
+            "ERC721Facet: This contract currently only supports its owner withdrawing to self"
         );
         getPaymentToken().transfer(_receiver, _amount);
     }
@@ -44,7 +46,10 @@ contract LandsFacet {
         LibERC721.erc721Storage().licenseURI = _licenseURI;
     }
 
-    function batchSetTokenURI(uint256[] calldata tokenIds, string[] calldata tokenURIs) external {
+    function batchSetTokenURI(
+        uint256[] calldata tokenIds,
+        string[] calldata tokenURIs
+    ) external {
         LibPermissions.enforceIsOwnerOrGameServer();
         for (uint256 i = 0; i < tokenIds.length; i++) {
             LibERC721.setTokenURI(tokenIds[i], tokenURIs[i]);
@@ -56,12 +61,19 @@ contract LandsFacet {
         string[] calldata tokenURIs,
         uint256[] calldata levels
     ) external {
-        LibAccessBadge.requireBadge('migrator');
+        LibAccessBadge.requireBadge("migrator");
         LibValidate.enforceNonEmptyUintArray(tokenIds);
-        require(tokenIds.length == tokenURIs.length && tokenIds.length == levels.length, 'Length mismatch');
+        require(
+            tokenIds.length == tokenURIs.length &&
+                tokenIds.length == levels.length,
+            "Length mismatch"
+        );
         for (uint256 i = 0; i < tokenIds.length; i++) {
             LibERC721.setTokenURI(tokenIds[i], tokenURIs[i]);
-            uint256 dna = LibLandDNA._setLevel(LibLandDNA._getDNA(tokenIds[i]), levels[i]);
+            uint256 dna = LibLandDNA._setLevel(
+                LibLandDNA._getDNA(tokenIds[i]),
+                levels[i]
+            );
             LibLandDNA._setDNA(tokenIds[i], dna);
         }
     }

@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.0;
 
-import {LibERC721} from '../../lib/@lagunagames/cu-tokens/src/libraries/LibERC721.sol';
-import {LibLandDNA} from '../libraries/LibLandDNA.sol';
-import {LibLandNames} from '../libraries/LibLandNames.sol';
-import {LibLand} from '../libraries/LibLand.sol';
+import {LibERC721} from "../../lib/cu-osc-common-tokens/src/libraries/LibERC721.sol";
+import {LibLandDNA} from "../libraries/LibLandDNA.sol";
+import {LibLandNames} from "../libraries/LibLandNames.sol";
+import {LibLand} from "../libraries/LibLand.sol";
 
 contract MetadataFacet {
     function getLandMetaData(
@@ -44,7 +44,9 @@ contract MetadataFacet {
         mythic = LibLandDNA._getMythic(dna);
     }
 
-    function getAllLandIdsForOwner(address _owner) external view returns (uint256[] memory) {
+    function getAllLandIdsForOwner(
+        address _owner
+    ) external view returns (uint256[] memory) {
         LibERC721.ERC721Storage storage es = LibERC721.erc721Storage();
         uint256 balance = es.balances[_owner];
         uint256[] memory ids = new uint256[](balance);

@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.0;
 
-import {LibBin} from '../../lib/@lagunagames/cu-common/src/libraries/LibBin.sol';
-import {LibLand} from './LibLand.sol';
-import {LibEvents} from './LibEvents.sol';
+import {LibBin} from "../../lib/cu-osc-common/src/libraries/LibBin.sol";
+import {LibLand} from "./LibLand.sol";
+import {LibEvents} from "./LibEvents.sol";
 
 library LibLandDNA {
     uint256 internal constant DNA_VERSION = 1;
@@ -47,8 +47,11 @@ library LibLandDNA {
         return LibLand.landStorage().land_dna[_tokenId];
     }
 
-    function _setDNA(uint256 _tokenId, uint256 _dna) internal returns (uint256) {
-        require(_dna > 0, 'LibLandDNA: cannot set 0 DNA');
+    function _setDNA(
+        uint256 _tokenId,
+        uint256 _dna
+    ) internal returns (uint256) {
+        require(_dna > 0, "LibLandDNA: cannot set 0 DNA");
         LibLand.LandStorage storage ds = LibLand.landStorage();
         ds.land_dna[_tokenId] = _dna;
         emit LibEvents.DNAUpdated(_tokenId, ds.land_dna[_tokenId]);
@@ -59,7 +62,10 @@ library LibLandDNA {
         return LibBin.extract(_dna, DNA_VERSION_MASK);
     }
 
-    function _setVersion(uint256 _dna, uint256 _version) internal pure returns (uint256) {
+    function _setVersion(
+        uint256 _dna,
+        uint256 _version
+    ) internal pure returns (uint256) {
         return LibBin.splice(_dna, _version, DNA_VERSION_MASK);
     }
 
@@ -67,7 +73,10 @@ library LibLandDNA {
         return LibBin.extract(_dna, DNA_ORIGIN_MASK);
     }
 
-    function _setOrigin(uint256 _dna, uint256 _origin) internal pure returns (uint256) {
+    function _setOrigin(
+        uint256 _dna,
+        uint256 _origin
+    ) internal pure returns (uint256) {
         return LibBin.splice(_dna, _origin, DNA_ORIGIN_MASK);
     }
 
@@ -75,7 +84,10 @@ library LibLandDNA {
         return LibBin.extractBool(_dna, DNA_LOCKED_MASK);
     }
 
-    function _setGameLocked(uint256 _dna, bool _val) internal pure returns (uint256) {
+    function _setGameLocked(
+        uint256 _dna,
+        bool _val
+    ) internal pure returns (uint256) {
         return LibBin.splice(_dna, _val, DNA_LOCKED_MASK);
     }
 
@@ -83,7 +95,10 @@ library LibLandDNA {
         return LibBin.extractBool(_dna, DNA_LIMITEDEDITION_MASK);
     }
 
-    function _setLimitedEdition(uint256 _dna, bool _val) internal pure returns (uint256) {
+    function _setLimitedEdition(
+        uint256 _dna,
+        bool _val
+    ) internal pure returns (uint256) {
         return LibBin.splice(_dna, _val, DNA_LIMITEDEDITION_MASK);
     }
 
@@ -96,14 +111,19 @@ library LibLandDNA {
     }
 
     function _getMythic(uint256 _dna) internal view returns (bool) {
-        return LibLand.landStorage().rarityByLandType[_getLandType(_dna)] == RARITY_MYTHIC;
+        return
+            LibLand.landStorage().rarityByLandType[_getLandType(_dna)] ==
+            RARITY_MYTHIC;
     }
 
     function _getRarity(uint256 _dna) internal pure returns (uint256) {
         return LibBin.extract(_dna, DNA_RARITY_MASK);
     }
 
-    function _setRarity(uint256 _dna, uint256 _rarity) internal pure returns (uint256) {
+    function _setRarity(
+        uint256 _dna,
+        uint256 _rarity
+    ) internal pure returns (uint256) {
         return LibBin.splice(_dna, _rarity, DNA_RARITY_MASK);
     }
 
@@ -111,7 +131,10 @@ library LibLandDNA {
         return LibBin.extract(_dna, DNA_LANDTYPE_MASK);
     }
 
-    function _setLandType(uint256 _dna, uint256 _landType) internal pure returns (uint256) {
+    function _setLandType(
+        uint256 _dna,
+        uint256 _landType
+    ) internal pure returns (uint256) {
         return LibBin.splice(_dna, _landType, DNA_LANDTYPE_MASK);
     }
 
@@ -119,7 +142,10 @@ library LibLandDNA {
         return LibBin.extract(_dna, DNA_LEVEL_MASK);
     }
 
-    function _setLevel(uint256 _dna, uint256 _level) internal pure returns (uint256) {
+    function _setLevel(
+        uint256 _dna,
+        uint256 _level
+    ) internal pure returns (uint256) {
         return LibBin.splice(_dna, _level, DNA_LEVEL_MASK);
     }
 
@@ -127,7 +153,10 @@ library LibLandDNA {
         return LibBin.extract(_dna, DNA_FIRSTNAME_MASK);
     }
 
-    function _setFirstNameIndex(uint256 _dna, uint256 _index) internal pure returns (uint256) {
+    function _setFirstNameIndex(
+        uint256 _dna,
+        uint256 _index
+    ) internal pure returns (uint256) {
         return LibBin.splice(_dna, _index, DNA_FIRSTNAME_MASK);
     }
 
@@ -135,7 +164,10 @@ library LibLandDNA {
         return LibBin.extract(_dna, DNA_MIDDLENAME_MASK);
     }
 
-    function _setMiddleNameIndex(uint256 _dna, uint256 _index) internal pure returns (uint256) {
+    function _setMiddleNameIndex(
+        uint256 _dna,
+        uint256 _index
+    ) internal pure returns (uint256) {
         return LibBin.splice(_dna, _index, DNA_MIDDLENAME_MASK);
     }
 
@@ -143,29 +175,40 @@ library LibLandDNA {
         return LibBin.extract(_dna, DNA_LASTNAME_MASK);
     }
 
-    function _setLastNameIndex(uint256 _dna, uint256 _index) internal pure returns (uint256) {
+    function _setLastNameIndex(
+        uint256 _dna,
+        uint256 _index
+    ) internal pure returns (uint256) {
         return LibBin.splice(_dna, _index, DNA_LASTNAME_MASK);
     }
 
     function enforceDNAVersionMatch(uint256 _dna) internal pure {
-        require(_getVersion(_dna) == DNA_VERSION, 'LibLandDNA: Invalid DNA version');
+        require(
+            _getVersion(_dna) == DNA_VERSION,
+            "LibLandDNA: Invalid DNA version"
+        );
     }
 
-    function _landIsTransferrable(uint256 tokenId) internal view returns (bool) {
+    function _landIsTransferrable(
+        uint256 tokenId
+    ) internal view returns (bool) {
         if (_getGameLocked(_getDNA(tokenId))) {
             return false;
         }
         LibLand.LandStorage storage ds = LibLand.landStorage();
-        bool coolingDownFromForceUnlock = (ds.landLastForceUnlock[tokenId] + ds.forceUnlockLandCooldown) >=
-            block.timestamp;
+        bool coolingDownFromForceUnlock = (ds.landLastForceUnlock[tokenId] +
+            ds.forceUnlockLandCooldown) >= block.timestamp;
 
         return !coolingDownFromForceUnlock;
     }
 
     function _enforceLandIsNotCoolingDown(uint256 tokenId) internal view {
         LibLand.LandStorage storage ds = LibLand.landStorage();
-        bool coolingDownFromForceUnlock = (ds.landLastForceUnlock[tokenId] + ds.forceUnlockLandCooldown) >=
-            block.timestamp;
-        require(!coolingDownFromForceUnlock, 'LibLandDNA: Land cooling down from force unlock');
+        bool coolingDownFromForceUnlock = (ds.landLastForceUnlock[tokenId] +
+            ds.forceUnlockLandCooldown) >= block.timestamp;
+        require(
+            !coolingDownFromForceUnlock,
+            "LibLandDNA: Land cooling down from force unlock"
+        );
     }
 }

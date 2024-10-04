@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.19;
 
-import {ERC721Facet} from '../../lib/@lagunagames/cu-tokens/src/facets/ERC721Facet.sol';
-import {LibERC721} from '../../lib/@lagunagames/cu-tokens/src/libraries/LibERC721.sol';
-import {LibLandDNA} from '../libraries/LibLandDNA.sol';
+import {ERC721Facet} from "../../lib/cu-osc-common-tokens/src/facets/ERC721Facet.sol";
+import {LibERC721} from "../../lib/cu-osc-common-tokens/src/libraries/LibERC721.sol";
+import {LibLandDNA} from "../libraries/LibLandDNA.sol";
 
 /// @title Unicorn ERC721 Facet
 /// @notice The ERC721 Facet for the Crypto Unicorns - this overloads the standard ERC721Facet
@@ -22,15 +22,20 @@ contract LandERC721Facet is ERC721Facet {
      *
      * Emits a {Transfer} event.
      */
-    function safeTransferFrom(address from, address to, uint256 tokenId, bytes calldata data) external override {
+    function safeTransferFrom(
+        address from,
+        address to,
+        uint256 tokenId,
+        bytes calldata data
+    ) external override {
         require(
             LibERC721.isApprovedOrOwner(_msgSender(), tokenId),
-            'ERC721: transfer caller is not owner nor approved'
+            "ERC721: transfer caller is not owner nor approved"
         );
 
         require(
             LibLandDNA._landIsTransferrable(tokenId),
-            'LibERC721: Unicorn must be unlocked from game before transfering'
+            "LibERC721: Unicorn must be unlocked from game before transfering"
         );
 
         LibERC721.safeTransfer(from, to, tokenId, data);
@@ -52,18 +57,22 @@ contract LandERC721Facet is ERC721Facet {
      *
      * Emits a {Transfer} event.
      */
-    function safeTransferFrom(address from, address to, uint256 tokenId) external override {
+    function safeTransferFrom(
+        address from,
+        address to,
+        uint256 tokenId
+    ) external override {
         require(
             LibERC721.isApprovedOrOwner(_msgSender(), tokenId),
-            'ERC721: transfer caller is not owner nor approved'
+            "ERC721: transfer caller is not owner nor approved"
         );
 
         require(
             LibLandDNA._landIsTransferrable(tokenId),
-            'LibERC721: Unicorn must be unlocked from game before transfering'
+            "LibERC721: Unicorn must be unlocked from game before transfering"
         );
 
-        LibERC721.safeTransfer(from, to, tokenId, '');
+        LibERC721.safeTransfer(from, to, tokenId, "");
     }
 
     /**
@@ -82,15 +91,19 @@ contract LandERC721Facet is ERC721Facet {
      *
      * Emits a {Transfer} event.
      */
-    function transferFrom(address from, address to, uint256 tokenId) external override {
+    function transferFrom(
+        address from,
+        address to,
+        uint256 tokenId
+    ) external override {
         require(
             LibERC721.isApprovedOrOwner(_msgSender(), tokenId),
-            'ERC721: transfer caller is not owner nor approved'
+            "ERC721: transfer caller is not owner nor approved"
         );
 
         require(
             LibLandDNA._landIsTransferrable(tokenId),
-            'LibERC721: Unicorn must be unlocked from game before transfering'
+            "LibERC721: Unicorn must be unlocked from game before transfering"
         );
 
         LibERC721.transfer(from, to, tokenId);
@@ -106,12 +119,12 @@ contract LandERC721Facet is ERC721Facet {
     function burn(uint256 tokenId) public virtual {
         require(
             LibERC721.isApprovedOrOwner(_msgSender(), tokenId),
-            'ERC721: transfer caller is not owner nor approved'
+            "ERC721: transfer caller is not owner nor approved"
         );
 
         require(
             LibLandDNA._landIsTransferrable(tokenId),
-            'LibERC721: Unicorn must be unlocked from game before transfering'
+            "LibERC721: Unicorn must be unlocked from game before transfering"
         );
 
         // WARNING! This call DOES NOT reward Unicorn Soul tokens to the owner!

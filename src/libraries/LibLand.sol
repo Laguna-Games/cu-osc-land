@@ -1,11 +1,12 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.0;
-import {LibEnvironment} from '../../lib/@lagunagames/cu-common/src/libraries/LibEnvironment.sol';
+import {LibEnvironment} from "../../lib/cu-osc-common/src/libraries/LibEnvironment.sol";
 
 /// @custom:storage-location erc7201:games.laguna.LibLand
 library LibLand {
     bytes32 public constant LAND_STORAGE_POSITION =
-        keccak256(abi.encode(uint256(keccak256('games.laguna.LibLand')) - 1)) & ~bytes32(uint256(0xff));
+        keccak256(abi.encode(uint256(keccak256("games.laguna.LibLand")) - 1)) &
+            ~bytes32(uint256(0xff));
 
     struct LandStorage {
         // Land types
@@ -49,6 +50,9 @@ library LibLand {
     }
 
     function enforceBlockDeadlineIsValid(uint256 blockDeadline) internal view {
-        require(LibEnvironment.getBlockNumber() < blockDeadline, 'blockDeadline is overdue');
+        require(
+            LibEnvironment.getBlockNumber() < blockDeadline,
+            "blockDeadline is overdue"
+        );
     }
 }

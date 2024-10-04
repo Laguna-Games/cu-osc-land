@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.0;
 
-import {LibLandVending} from '../libraries/LibLandVending.sol';
+import {LibLandVending} from "../libraries/LibLandVending.sol";
 // import {LibDiamond} from "../libraries/LibDiamond.sol";
-import {LibContractOwner} from '../../lib/@lagunagames/lg-diamond-template/src/libraries/LibContractOwner.sol';
-import {LibPermissions} from '../libraries/LibPermissions.sol';
+import {LibContractOwner} from "../../lib/cu-osc-diamond-template/src/libraries/LibContractOwner.sol";
+import {LibPermissions} from "../libraries/LibPermissions.sol";
 
 contract LandVendingFacet {
     function getLandInventory() external view returns (uint256[2][13] memory) {
@@ -20,7 +20,10 @@ contract LandVendingFacet {
         return LibLandVending.beginKeystoneToLand(price, landType, slippage);
     }
 
-    function batchFinishMinting(uint256[] calldata tokenIds, string[] calldata tokenURIs) external {
+    function batchFinishMinting(
+        uint256[] calldata tokenIds,
+        string[] calldata tokenURIs
+    ) external {
         LibPermissions.enforceIsOwnerOrGameServer();
         LibLandVending.batchFinishMinting(tokenIds, tokenURIs);
     }
@@ -30,34 +33,61 @@ contract LandVendingFacet {
         LibLandVending.setMaxLandsByLandType(landType, max);
     }
 
-    function setFirstPhaseQuantityByLandType(uint8 landType, uint256 quantity) external {
+    function setFirstPhaseQuantityByLandType(
+        uint8 landType,
+        uint256 quantity
+    ) external {
         LibContractOwner.enforceIsContractOwner();
         LibLandVending.setFirstPhaseQuantityByLandType(landType, quantity);
     }
 
-    function setSecondPhaseQuantityByLandType(uint8 landType, uint256 quantity) external {
+    function setSecondPhaseQuantityByLandType(
+        uint8 landType,
+        uint256 quantity
+    ) external {
         LibContractOwner.enforceIsContractOwner();
         LibLandVending.setSecondPhaseQuantityByLandType(landType, quantity);
     }
 
-    function setBeginningByLandTypeAndPhase(uint8 landType, uint256 phase, uint256 beginning) external {
+    function setBeginningByLandTypeAndPhase(
+        uint8 landType,
+        uint256 phase,
+        uint256 beginning
+    ) external {
         LibContractOwner.enforceIsContractOwner();
-        LibLandVending.setBeginningByLandTypeAndPhase(landType, phase, beginning);
+        LibLandVending.setBeginningByLandTypeAndPhase(
+            landType,
+            phase,
+            beginning
+        );
     }
 
-    function setEndByLandTypeAndPhase(uint8 landType, uint256 phase, uint256 end) external {
+    function setEndByLandTypeAndPhase(
+        uint8 landType,
+        uint256 phase,
+        uint256 end
+    ) external {
         LibContractOwner.enforceIsContractOwner();
         LibLandVending.setEndByLandTypeAndPhase(landType, phase, end);
     }
 
-    function setKeystonePoolIdByLandType(uint8 landType, uint256 keystonePoolId) external {
+    function setKeystonePoolIdByLandType(
+        uint8 landType,
+        uint256 keystonePoolId
+    ) external {
         LibContractOwner.enforceIsContractOwner();
         LibLandVending.setKeystonePoolIdByLandType(landType, keystonePoolId);
     }
 
-    function setLandVendingStartingIndexByLandType(uint8 landType, uint256 startIndex) external {
+    function setLandVendingStartingIndexByLandType(
+        uint8 landType,
+        uint256 startIndex
+    ) external {
         LibContractOwner.enforceIsContractOwner();
-        LibLandVending.setLandVendingStartingIndexByLandType(landType, startIndex);
+        LibLandVending.setLandVendingStartingIndexByLandType(
+            landType,
+            startIndex
+        );
     }
 
     function setCommonOwedRBW(uint256 amount) external {
@@ -80,12 +110,17 @@ contract LandVendingFacet {
         LibLandVending.setOwedUNIM(amount);
     }
 
-    function setDefaultTokenURIByLandType(uint8 landType, string memory tokenURI) external {
+    function setDefaultTokenURIByLandType(
+        uint8 landType,
+        string memory tokenURI
+    ) external {
         LibContractOwner.enforceIsContractOwner();
         LibLandVending.setDefaultTokenURIByLandType(landType, tokenURI);
     }
 
-    function getMaxLandByLandType(uint8 landType) external view returns (uint256) {
+    function getMaxLandByLandType(
+        uint8 landType
+    ) external view returns (uint256) {
         return LibLandVending.getMaxLandByLandType(landType);
     }
 
@@ -105,35 +140,53 @@ contract LandVendingFacet {
         return LibLandVending.getOwedUNIM();
     }
 
-    function getLandVendingStartingIndexByLandType(uint8 landType) external view returns (uint256) {
+    function getLandVendingStartingIndexByLandType(
+        uint8 landType
+    ) external view returns (uint256) {
         return LibLandVending.getLandVendingStartingIndexByLandType(landType);
     }
 
-    function getKeystonePoolIdByLandType(uint8 landType) external view returns (uint256) {
+    function getKeystonePoolIdByLandType(
+        uint8 landType
+    ) external view returns (uint256) {
         return LibLandVending.getKeystonePoolIdByLandType(landType);
     }
 
-    function getFirstPhaseQuantityByLandType(uint8 landType) external view returns (uint256) {
+    function getFirstPhaseQuantityByLandType(
+        uint8 landType
+    ) external view returns (uint256) {
         return LibLandVending.getFirstPhaseQuantityByLandType(landType);
     }
 
-    function getSecondPhaseQuantityByLandType(uint8 landType) external view returns (uint256) {
+    function getSecondPhaseQuantityByLandType(
+        uint8 landType
+    ) external view returns (uint256) {
         return LibLandVending.getSecondPhaseQuantityByLandType(landType);
     }
 
-    function getBeginningByLandTypeAndPhase(uint8 landType, uint256 phase) external view returns (uint256) {
+    function getBeginningByLandTypeAndPhase(
+        uint8 landType,
+        uint256 phase
+    ) external view returns (uint256) {
         return LibLandVending.getBeginningByLandTypeAndPhase(landType, phase);
     }
 
-    function getEndByLandTypeAndPhase(uint8 landType, uint256 phase) external view returns (uint256) {
+    function getEndByLandTypeAndPhase(
+        uint8 landType,
+        uint256 phase
+    ) external view returns (uint256) {
         return LibLandVending.getEndByLandTypeAndPhase(landType, phase);
     }
 
-    function getCurrentLandByLandType(uint8 landType) external view returns (uint256) {
+    function getCurrentLandByLandType(
+        uint8 landType
+    ) external view returns (uint256) {
         return LibLandVending.getCurrentLandByLandType(landType);
     }
 
-    function getDefaultTokenURIByLandType(uint8 landType) external view returns (string memory) {
+    function getDefaultTokenURIByLandType(
+        uint8 landType
+    ) external view returns (string memory) {
         return LibLandVending.getDefaultTokenURIByLandType(landType);
     }
 }

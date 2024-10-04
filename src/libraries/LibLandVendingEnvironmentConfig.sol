@@ -1,18 +1,22 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.0;
 
-import {LibLandVending} from './LibLandVending.sol';
-import {LibERC721} from '../../lib/@lagunagames/cu-tokens/src/libraries/LibERC721.sol';
-import {LibLand} from './LibLand.sol';
-import {LibRNG} from '../../lib/@lagunagames/cu-common/src/libraries/LibRNG.sol';
+import {LibLandVending} from "./LibLandVending.sol";
+import {LibERC721} from "../../lib/cu-osc-common-tokens/src/libraries/LibERC721.sol";
+import {LibLand} from "./LibLand.sol";
+import {LibRNG} from "../../lib/cu-osc-common/src/libraries/LibRNG.sol";
 
 library LibLandVendingEnvironmentConfig {
     function configureForMainnet() internal {
-        LibERC721.erc721Storage().name = 'Unicorn Farm';
-        LibERC721.erc721Storage().symbol = 'UNIF';
+        LibERC721.erc721Storage().name = "Unicorn Farm";
+        LibERC721.erc721Storage().symbol = "UNIF";
         //TODO: This contractURI is outdated, it's supposed to be in Polygon not XAI. Update it.
-        LibERC721.erc721Storage().contractURI = 'https://arweave.net/HNvtS6fber4NC80_sEd0MAiUr7UyA3R4GpEFFqyRZAk';
-        LibERC721.erc721Storage().licenseURI = 'https://arweave.net/520gStGJ4Fla9GeG0U9UIm1vYnei8dOnDfznCaJy0IY';
+        LibERC721
+            .erc721Storage()
+            .contractURI = "https://arweave.net/HNvtS6fber4NC80_sEd0MAiUr7UyA3R4GpEFFqyRZAk";
+        LibERC721
+            .erc721Storage()
+            .licenseURI = "https://arweave.net/520gStGJ4Fla9GeG0U9UIm1vYnei8dOnDfznCaJy0IY";
         LibLand.landStorage().forceUnlockLandCooldown = 86400;
         LibRNG.rngStorage().rngNonce = 10000000;
         initialLandVendingLoad();
@@ -102,17 +106,49 @@ library LibLandVendingEnvironmentConfig {
         LibLandVending.setBeginningByLandTypeAndPhase(9, 2, 100000000000000000);
         LibLandVending.setBeginningByLandTypeAndPhase(9, 3, 150000000000000000);
         LibLandVending.setBeginningByLandTypeAndPhase(10, 1, 25000000000000000);
-        LibLandVending.setBeginningByLandTypeAndPhase(10, 2, 100000000000000000);
-        LibLandVending.setBeginningByLandTypeAndPhase(10, 3, 150000000000000000);
+        LibLandVending.setBeginningByLandTypeAndPhase(
+            10,
+            2,
+            100000000000000000
+        );
+        LibLandVending.setBeginningByLandTypeAndPhase(
+            10,
+            3,
+            150000000000000000
+        );
         LibLandVending.setBeginningByLandTypeAndPhase(11, 1, 25000000000000000);
-        LibLandVending.setBeginningByLandTypeAndPhase(11, 2, 100000000000000000);
-        LibLandVending.setBeginningByLandTypeAndPhase(11, 3, 150000000000000000);
+        LibLandVending.setBeginningByLandTypeAndPhase(
+            11,
+            2,
+            100000000000000000
+        );
+        LibLandVending.setBeginningByLandTypeAndPhase(
+            11,
+            3,
+            150000000000000000
+        );
         LibLandVending.setBeginningByLandTypeAndPhase(12, 1, 25000000000000000);
-        LibLandVending.setBeginningByLandTypeAndPhase(12, 2, 100000000000000000);
-        LibLandVending.setBeginningByLandTypeAndPhase(12, 3, 150000000000000000);
+        LibLandVending.setBeginningByLandTypeAndPhase(
+            12,
+            2,
+            100000000000000000
+        );
+        LibLandVending.setBeginningByLandTypeAndPhase(
+            12,
+            3,
+            150000000000000000
+        );
         LibLandVending.setBeginningByLandTypeAndPhase(13, 1, 25000000000000000);
-        LibLandVending.setBeginningByLandTypeAndPhase(13, 2, 100000000000000000);
-        LibLandVending.setBeginningByLandTypeAndPhase(13, 3, 150000000000000000);
+        LibLandVending.setBeginningByLandTypeAndPhase(
+            13,
+            2,
+            100000000000000000
+        );
+        LibLandVending.setBeginningByLandTypeAndPhase(
+            13,
+            3,
+            150000000000000000
+        );
 
         //endByLandTypeAndPhase;
         LibLandVending.setEndByLandTypeAndPhase(1, 1, 500000000000000000);
@@ -158,55 +194,55 @@ library LibLandVendingEnvironmentConfig {
         //defaultTokenURIByLandType;
         LibLandVending.setDefaultTokenURIByLandType(
             1,
-            'http://arweave.net/EQiRNC3DUfVd3ClYWwfshrEdGCyGWcj-qPo-zvfvyl0'
+            "http://arweave.net/EQiRNC3DUfVd3ClYWwfshrEdGCyGWcj-qPo-zvfvyl0"
         ); //  mythic
         LibLandVending.setDefaultTokenURIByLandType(
             2,
-            'http://arweave.net/iatq03tP1SUabHFk-GLHueqc3mifSlKiX1bpNnJG3kM'
+            "http://arweave.net/iatq03tP1SUabHFk-GLHueqc3mifSlKiX1bpNnJG3kM"
         ); //  light
         LibLandVending.setDefaultTokenURIByLandType(
             3,
-            'http://arweave.net/52NBI6ei0XSed2Gp4ozR2mznjKsiIKmHwrREpSqSRoQ'
+            "http://arweave.net/52NBI6ei0XSed2Gp4ozR2mznjKsiIKmHwrREpSqSRoQ"
         ); //  wonder
         LibLandVending.setDefaultTokenURIByLandType(
             4,
-            'http://arweave.net/HNhW77ri-4I-UXvcbGJim-t9dVAWYnRHcB_9LCXvbto'
+            "http://arweave.net/HNhW77ri-4I-UXvcbGJim-t9dVAWYnRHcB_9LCXvbto"
         ); //  mystery
         LibLandVending.setDefaultTokenURIByLandType(
             5,
-            'http://arweave.net/7kHhp35gKyjLi-GXK4jlWG-kFADEZ0rQWyviqh0bbSo'
+            "http://arweave.net/7kHhp35gKyjLi-GXK4jlWG-kFADEZ0rQWyviqh0bbSo"
         ); //  heart
         LibLandVending.setDefaultTokenURIByLandType(
             6,
-            'http://arweave.net/OPWJpYRixaNbUXI19XtSeauX9ea9fN3q8IManW8RbB0'
+            "http://arweave.net/OPWJpYRixaNbUXI19XtSeauX9ea9fN3q8IManW8RbB0"
         ); //  cloud
         LibLandVending.setDefaultTokenURIByLandType(
             7,
-            'http://arweave.net/_eZq8XhlUcs5cvJ9ISO1aGzpt9b5KC3hy9yn0hPsx8k'
+            "http://arweave.net/_eZq8XhlUcs5cvJ9ISO1aGzpt9b5KC3hy9yn0hPsx8k"
         ); //  flower
         LibLandVending.setDefaultTokenURIByLandType(
             8,
-            'http://arweave.net/HiHRkizwT71OzBOE09nzbb7uHtIXSBltRPrtLXo8n_I'
+            "http://arweave.net/HiHRkizwT71OzBOE09nzbb7uHtIXSBltRPrtLXo8n_I"
         ); //  candy
         LibLandVending.setDefaultTokenURIByLandType(
             9,
-            'http://arweave.net/G7qTN8klYJvY-UKZQSeReE6ZAhMag3QigOuSeoqYNuU'
+            "http://arweave.net/G7qTN8klYJvY-UKZQSeReE6ZAhMag3QigOuSeoqYNuU"
         ); //  crystal
         LibLandVending.setDefaultTokenURIByLandType(
             10,
-            'http://arweave.net/owcjPqoPSqVELn7iXKjm24SdQY_dqo53tTPrDddTNuk'
+            "http://arweave.net/owcjPqoPSqVELn7iXKjm24SdQY_dqo53tTPrDddTNuk"
         ); //  moon
         LibLandVending.setDefaultTokenURIByLandType(
             11,
-            'http://arweave.net/1S7zlsAkyQ16yJPNqnwnCDEmR39rDhE_bhgDagyuxNQ'
+            "http://arweave.net/1S7zlsAkyQ16yJPNqnwnCDEmR39rDhE_bhgDagyuxNQ"
         ); //  rainbow
         LibLandVending.setDefaultTokenURIByLandType(
             12,
-            'http://arweave.net/Mhok59jWqz6LfUnjZ8ACwgD0UFJfFkSfUSTzx9XNKvM'
+            "http://arweave.net/Mhok59jWqz6LfUnjZ8ACwgD0UFJfFkSfUSTzx9XNKvM"
         ); //  omnom
         LibLandVending.setDefaultTokenURIByLandType(
             13,
-            'http://arweave.net/o1CaszjL8WIxpbZsPMEbP9gOCP4lji_Ouv9v77lMJ6w'
+            "http://arweave.net/o1CaszjL8WIxpbZsPMEbP9gOCP4lji_Ouv9v77lMJ6w"
         ); //  star
 
         //keystonePoolIdByLandType

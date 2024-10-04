@@ -1,14 +1,18 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.19;
 
-import {IDelegatePermissions} from '../../lib/@lagunagames/cu-common/src/interfaces/IDelegatePermissions.sol';
-import {IPermissionProvider} from '../../lib/@lagunagames/cu-common/src/interfaces/IPermissionProvider.sol';
-import {LibERC721} from '../../lib/@lagunagames/cu-tokens/src/libraries/LibERC721.sol';
-import {LibResourceLocator} from '../../lib/@lagunagames/cu-common/src/libraries/LibResourceLocator.sol';
-import {LibContractOwner} from '../../lib/@lagunagames/lg-diamond-template/src/libraries/LibContractOwner.sol';
+import {IDelegatePermissions} from "../../lib/cu-osc-common/src/interfaces/IDelegatePermissions.sol";
+import {IPermissionProvider} from "../../lib/cu-osc-common/src/interfaces/IPermissionProvider.sol";
+import {LibERC721} from "../../lib/cu-osc-common-tokens/src/libraries/LibERC721.sol";
+import {LibResourceLocator} from "../../lib/cu-osc-common/src/libraries/LibResourceLocator.sol";
+import {LibContractOwner} from "../../lib/cu-osc-diamond-template/src/libraries/LibContractOwner.sol";
 
 library LibPermissions {
-    function getPermissionProvider() internal view returns (IDelegatePermissions) {
+    function getPermissionProvider()
+        internal
+        view
+        returns (IDelegatePermissions)
+    {
         return IDelegatePermissions(LibResourceLocator.playerProfile());
     }
 
@@ -33,8 +37,9 @@ library LibPermissions {
 
         require(
             ownerOfNFT == msg.sender ||
-                (ownerOfNFT == delegator && pp.checkDelegatePermissions(delegator, permissions)),
-            'LibPermissions: Must own the NFT or have permission from owner'
+                (ownerOfNFT == delegator &&
+                    pp.checkDelegatePermissions(delegator, permissions)),
+            "LibPermissions: Must own the NFT or have permission from owner"
         );
     }
 
@@ -50,15 +55,18 @@ library LibPermissions {
         address delegator = pp.getDelegator(msg.sender);
         //Sender owns the NFT or sender's owner owns the NFT and sender has specific permission for this action.
         require(
-            ownerOfNFT == msg.sender || (ownerOfNFT == delegator && pp.checkDelegatePermission(delegator, permission)),
-            'LibPermissions: Must own the NFT or have permission from owner'
+            ownerOfNFT == msg.sender ||
+                (ownerOfNFT == delegator &&
+                    pp.checkDelegatePermission(delegator, permission)),
+            "LibPermissions: Must own the NFT or have permission from owner"
         );
     }
 
     function enforceIsOwnerOrGameServer() internal view {
         require(
-            msg.sender == LibResourceLocator.gameServerOracle() || msg.sender == LibContractOwner.contractOwner(),
-            'LibPermissions: Must be owner or game server'
+            msg.sender == LibResourceLocator.gameServerOracle() ||
+                msg.sender == LibContractOwner.contractOwner(),
+            "LibPermissions: Must be owner or game server"
         );
     }
 }
