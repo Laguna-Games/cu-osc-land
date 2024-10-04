@@ -1,0 +1,21 @@
+[submodule "lib/forge-std"]
+	path = lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
+[submodule "lib/@lagunagames/lg-diamond-template"]
+	path = lib/@lagunagames/lg-diamond-template
+	url = https://github.com/Laguna-Games/lg-diamond-template
+[submodule "lib/@lagunagames/cu-common"]
+	path = lib/@lagunagames/cu-common
+	url = https://github.com/Laguna-Games/cu-bcv2-common
+	branch=v1.3.3
+[submodule "lib/@lagunagames/cu-tokens"]
+	path = lib/@lagunagames/cu-tokens
+	url = https://github.com/Laguna-Games/cu-bcv2-common-tokens.git
+	branch = v1.1.4
+[submodule "lib/openzeppelin-contracts"]
+	path = lib/openzeppelin-contracts
+	url = https://github.com/OpenZeppelin/openzeppelin-contracts
+	branch = v4.9.3
+[submodule "lib/dao"]
+	path = lib/dao
+	url = https://github.com/bugout-dev/dao
