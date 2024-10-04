@@ -19,3 +19,6 @@
 [submodule "lib/dao"]
 	path = lib/dao
 	url = https://github.com/bugout-dev/dao
+[submodule "lib/cu-osc-common-tokens"]
+	path = lib/cu-osc-common-tokens
+	url = https://github.com/Laguna-Games/cu-osc-common-tokens
